@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+</head>
+
+<body>
+    <input type="text" class="name" value="slick" placeholder="username">
+    <input type="text" class="email" value="hartpaulisimo@gmail.com" placeholder="email">
+    <input type="text" class="url" value="something something" placeholder="imageUrl">
+    <button>save to database</button>
+    <div class="message"></div>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD-N0amttNPVAm0d6TOdKf0nSgbXdHIMb8",
+            authDomain: "test-f995a.firebaseapp.com",
+            projectId: "test-f995a",
+            databaseURL: "https://test-f995a-default-rtdb.firebaseio.com",
+            storageBucket: "test-f995a.appspot.com",
+            messagingSenderId: "530331901464",
+            appId: "1:530331901464:web:26293abbe724c774ffad6d"
+        };
+
+        firebase.initializeApp(firebaseConfig)
+        var database = firebase.database();
+
+
+        const button = document.querySelector('button')
+        const messageBox = document.querySelector('.message')
+
+        button.onclick = async function(){
+            const username = document.querySelector('.name').value
+            const email = document.querySelector('.email').value
+            const image = document.querySelector('.url').value
+
+            const dataId = username + username 
+
+            try{
+                messageBox.innerText = 'Loading...'
+                
+                await database.ref('users/' + dataId).set({
+                    username: username,
+                    email: email,
+                    profile_picture: image
+                });
+                messageBox.innerText = 'Sucess!'
+            }catch(error){
+                messageBox.innerText = 'Error happened!'
+                console.log( error )
+            }
+
+    
+        }
+       
+        
+    </script>
+</body>
+
+</html>
